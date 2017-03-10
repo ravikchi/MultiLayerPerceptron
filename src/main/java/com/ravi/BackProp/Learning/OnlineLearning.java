@@ -61,10 +61,22 @@ public class OnlineLearning implements LearningAlgorithm {
         return totalError;
     }
 
+    private double validation(double[][] inputs, double[][] outputs, int trainingSetSize){
+        double totalError = 0.0;
+        for(int t=trainingSetSize; t<inputs.length; t++){
+            double[] actOutputs = perceptron.getOutput(inputs[t]);
+            totalError = totalError + calculateError(inputs[t], outputs[t]);
+        }
+
+        return totalError;
+    }
+
     public void train(double[][] inputs, double[][] outputs) {
         int trainingSetSize = (int) (inputs.length- inputs.length*validationSize);
         int count=0;
-        while(count < 5000){
+        double oldValidationError = Double.POSITIVE_INFINITY;
+        int validationErrorsCount = 0;
+        while(count < 50000){
             Logger.log("Running Epoch Number "+count);
             double error = runEpoch(inputs, outputs, trainingSetSize);
             Logger.log("Finished Epoch Number "+count);
@@ -73,6 +85,17 @@ public class OnlineLearning implements LearningAlgorithm {
             }else{
                 Logger.log("Total Error "+error);
             }
+            double validationError = validation(inputs, outputs, trainingSetSize);
+            Logger.log("Validation Error "+validationError);
+            if(oldValidationError >= validationError){
+                validationErrorsCount = 0;
+            }else{
+                validationErrorsCount++;
+                if(validationErrorsCount > 1000) {
+                    break;
+                }
+            }
+            oldValidationError = validationError;
             Logger.log("##################################################################################################################");
             count++;
         }

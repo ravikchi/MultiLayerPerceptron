@@ -29,8 +29,8 @@ public class SineLearning {
             inputs[i][0] = d;
             outputs[i][0] = Math.sin(2*Math.PI*d);
 
-            System.out.println("Input "+inputs[i][0]);
-            System.out.println("Output "+outputs[i][0]);
+            //System.out.println("Input "+inputs[i][0]);
+            //System.out.println("Output "+outputs[i][0]);
             i++;
         }
 
