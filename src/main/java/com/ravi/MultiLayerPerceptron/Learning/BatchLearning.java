@@ -3,21 +3,18 @@ package com.ravi.MultiLayerPerceptron.Learning;
 import com.ravi.MultiLayerPerceptron.Error.ErrorFunction;
 import com.ravi.MultiLayerPerceptron.MLP.MLPerceptron;
 import com.ravi.MultiLayerPerceptron.Training.TrainingAlgorithm;
-import com.ravi.MultiLayerPerceptron.Utils.ArrayUtils;
 import com.ravi.MultiLayerPerceptron.Utils.Logger;
 
-import java.util.Random;
-
 /**
- * Created by 611445924 on 08/03/2017.
+ * Created by rc16956 on 10/03/2017.
  */
-public class OnlineLearning implements LearningAlgorithm {
+public class BatchLearning implements LearningAlgorithm {
     private double validationSize;
     private TrainingAlgorithm trainingAlgorithm;
     private ErrorFunction ef;
     private MLPerceptron perceptron;
 
-    public OnlineLearning(double validationSize, TrainingAlgorithm trainingAlgorithm, ErrorFunction ef, MLPerceptron perceptron) {
+    public BatchLearning(double validationSize, TrainingAlgorithm trainingAlgorithm, ErrorFunction ef, MLPerceptron perceptron) {
         this.validationSize = validationSize;
         this.trainingAlgorithm = trainingAlgorithm;
         this.ef = ef;
@@ -40,6 +37,9 @@ public class OnlineLearning implements LearningAlgorithm {
 
     public double runEpoch(double[][] inputs, double[][] outputs, int trainingSetSize){
         double totalError = 0.0;
+        double[][] deltaWeightsKI = new double[perceptron.getNumberOfOutputs()][perceptron.getNumberOfHiddenNeurons()+1];
+        double[][] deltaWeightsIJ = new double[perceptron.getNumberOfHiddenNeurons()][perceptron.getNumberOfInputs()+1];
+
         for(int t=0; t<trainingSetSize; t++){
             double[] actOutputs = perceptron.getOutput(inputs[t]);
             double ekt = localError(outputs[t], actOutputs);
@@ -56,15 +56,55 @@ public class OnlineLearning implements LearningAlgorithm {
             Logger.debugLog("Error "+ekt);
 
             trainingAlgorithm.initialise(perceptron, t);
-            perceptron.updateWeightKI(trainingAlgorithm.calculateDeltaWeightKI(inputs[t], ekt, trainingAlgorithm.calculateDeltaK(inputs[t], ekt)));
-            perceptron.updateWeightIJ(trainingAlgorithm.calculateDeltaWeightIJ(inputs[t], ekt, trainingAlgorithm.calculateDeltaI(inputs[t], ekt)));
+            double[][] localDeltaWeightsKI = trainingAlgorithm.calculateDeltaWeightKI(inputs[t], ekt, trainingAlgorithm.calculateDeltaK(inputs[t], ekt));
+            deltaWeightsKI = updateDeltaWeights(localDeltaWeightsKI, deltaWeightsKI);
+
+            double[][] localDeltaWeightsIJ = trainingAlgorithm.calculateDeltaWeightIJ(inputs[t], ekt, trainingAlgorithm.calculateDeltaI(inputs[t], ekt));
+            deltaWeightsIJ = updateDeltaWeights(localDeltaWeightsIJ, deltaWeightsIJ);
 
 
             Logger.debugLog("Finished online learning for input "+t);
             Logger.debugLog("*****************************************************************************************************************");
         }
 
+        perceptron.updateWeightKI(deltaWeightsKI);
+
+        for(int t=0; t<trainingSetSize; t++){
+            double[] actOutputs = perceptron.getOutput(inputs[t]);
+            double ekt = localError(outputs[t], actOutputs);
+            totalError = totalError + calculateError(inputs[t], outputs[t]);
+
+            Logger.debugLog("Running online learning for input "+t);
+            StringBuilder msg = new StringBuilder("Inputs are ");
+            for(int j=0; j<inputs[t].length; j++){
+                msg.append(inputs[t][j] + " ");
+            }
+            Logger.debugLog(msg.toString());
+            Logger.debugLog("Desired Output "+outputs[t][0]);
+            Logger.debugLog("Actual Output "+actOutputs[0]);
+            Logger.debugLog("Error "+ekt);
+
+            trainingAlgorithm.initialise(perceptron, t);
+
+            double[][] localDeltaWeightsIJ = trainingAlgorithm.calculateDeltaWeightIJ(inputs[t], ekt, trainingAlgorithm.calculateDeltaI(inputs[t], ekt));
+            deltaWeightsIJ = updateDeltaWeights(localDeltaWeightsIJ, deltaWeightsIJ);
+
+
+            Logger.debugLog("Finished online learning for input "+t);
+            Logger.debugLog("*****************************************************************************************************************");
+        }
+        perceptron.updateWeightIJ(deltaWeightsIJ);
+
         return totalError;
+    }
+
+    private double[][] updateDeltaWeights(double[][] localDeltaWeights, double[][] deltaWeights){
+        for(int k=0; k<localDeltaWeights.length; k++){
+            for(int i=0; i<localDeltaWeights[k].length; i++){
+                deltaWeights[k][i] = deltaWeights[k][i] = localDeltaWeights[k][i];
+            }
+        }
+        return deltaWeights;
     }
 
     private double validation(double[][] inputs, double[][] outputs, int trainingSetSize){
@@ -97,7 +137,7 @@ public class OnlineLearning implements LearningAlgorithm {
                 validationErrorsCount = 0;
             }else{
                 validationErrorsCount++;
-                if(validationErrorsCount > 100) {
+                if(validationErrorsCount > 1000) {
                     break;
                 }
             }

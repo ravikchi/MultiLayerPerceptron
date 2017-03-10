@@ -18,47 +18,60 @@ public class BackPropagration implements TrainingAlgorithm {
         this.alpha = alpha;
     }
 
-    public void runEpoch(double[] inputs, double ekt, MLPerceptron perceptron, int t) {
+    public void initialise(MLPerceptron perceptron, int t){
         this.perceptron = perceptron;
 
         if(t==0) {
-            oldDWKI = new double[perceptron.getNumberOfOutputs()][perceptron.getNumberOfHiddenNeurons()+1];
-            oldDWIJ = new double[perceptron.getNumberOfHiddenNeurons()][perceptron.getNumberOfInputs()+1];
+            oldDWKI = new double[perceptron.getNumberOfOutputs()][perceptron.getNumberOfHiddenNeurons() + 1];
+            oldDWIJ = new double[perceptron.getNumberOfHiddenNeurons()][perceptron.getNumberOfInputs() + 1];
+        }
+    }
+
+    public double[][] calculateDeltaWeightIJ(double[] inputs, double ekt, double[] deltaI){
+        double[][] deltaWeightsIJ = new double[perceptron.getNumberOfHiddenNeurons()][perceptron.getNumberOfInputs()+1];
+
+        for(int i=0; i<perceptron.getNumberOfHiddenNeurons(); i++){
+            for(int j=0; j<perceptron.getNumberOfInputs()+1; j++){
+                deltaWeightsIJ[i][j] = deltaWHJ(inputs, i, j, ekt, deltaI[i]);
+                oldDWIJ[i][j] = deltaWHJ(inputs, i, j, ekt, deltaI[i]);
+            }
         }
 
-        double[][] weightsKI = perceptron.getWeightKI();
+        return deltaWeightsIJ;
+    }
 
+    public double[][] calculateDeltaWeightKI(double[] inputs, double ekt, double[] deltaK){
+        double[][] deltaWeightsKI = new double[perceptron.getNumberOfOutputs()][perceptron.getNumberOfHiddenNeurons()+1];
+
+
+        for(int k=0; k<perceptron.getNumberOfOutputs(); k++){
+            for(int i=0; i<perceptron.getNumberOfHiddenNeurons()+1; i++) {
+                deltaWeightsKI[k][i] = deltaWKI(inputs, k, i, ekt, deltaK[k]);
+                oldDWKI[k][i] = deltaWKI(inputs, k, i, ekt, deltaK[k]);
+            }
+        }
+
+        return deltaWeightsKI;
+    }
+
+    public double[] calculateDeltaK(double[] inputs, double ekt){
         double[] deltaK = new double[perceptron.getNumberOfOutputs()];
 
         for(int k=0; k<perceptron.getNumberOfOutputs(); k++){
             deltaK[k] = deltaK(inputs, k, ekt);
         }
 
-        for(int k=0; k<perceptron.getNumberOfOutputs(); k++){
-            for(int i=0; i<perceptron.getNumberOfHiddenNeurons()+1; i++) {
-                weightsKI[k][i] = weightsKI[k][i] + deltaWKI(inputs, k, i, ekt, deltaK[k]);
-                oldDWKI[k][i] = deltaWKI(inputs, k, i, ekt, deltaK[k]);
-            }
-        }
+        return deltaK;
+    }
 
-        perceptron.setWeightKI(weightsKI);
-
-        double[][] weightsIJ = perceptron.getWeightIJ();
-
+    public double[] calculateDeltaI(double[] inputs, double ekt){
         double[] deltaI = new double[perceptron.getNumberOfHiddenNeurons()];
 
         for(int i=0; i<perceptron.getNumberOfHiddenNeurons(); i++){
             deltaI[i] = deltaI(inputs, i, ekt);
         }
 
-        for(int i=0; i<perceptron.getNumberOfHiddenNeurons(); i++){
-            for(int j=0; j<perceptron.getNumberOfInputs()+1; j++){
-                weightsIJ[i][j] = weightsIJ[i][j] + deltaWHJ(inputs, i, j, ekt, deltaI[i]);
-                oldDWIJ[i][j] = deltaWHJ(inputs, i, j, ekt, deltaI[i]);
-            }
-        }
-
-        perceptron.setWeightIJ(weightsIJ);
+        return deltaI;
     }
 
     private double deltaWKI(double[] inputs, int k, int i, double ekt, double deltaK){

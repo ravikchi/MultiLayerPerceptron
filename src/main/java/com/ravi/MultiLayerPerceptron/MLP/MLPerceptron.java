@@ -64,6 +64,15 @@ public class MLPerceptron {
         }
     }
 
+    public void updateWeightKI(double[][] deltaWeightKI){
+        for(int k=0; k<getNumberOfOutputs(); k++){
+            for(int i=0; i<getNumberOfHiddenNeurons()+1; i++) {
+                weightKI[k][i] = weightKI[k][i] + deltaWeightKI[k][i];
+                Logger.debugLog("Weight of Output neuron "+k+1+" and hidden neuron "+i+ " is : "+weightKI[k][i]);
+            }
+        }
+    }
+
     public double[][] getWeightIJ() {
         return weightIJ;
     }
@@ -72,6 +81,15 @@ public class MLPerceptron {
         this.weightIJ = weightIJ;
         for(int i=0; i<weightIJ.length; i++){
             for(int j=0; j<weightIJ[i].length; j++){
+                Logger.debugLog("Weight of hidden neuron  "+i+1+" and input "+j+ " is : "+weightIJ[i][j]);
+            }
+        }
+    }
+
+    public void updateWeightIJ(double[][] deltaweightIJ){
+        for(int i=0; i<getNumberOfHiddenNeurons(); i++){
+            for(int j=0; j<getNumberOfInputs()+1; j++){
+                weightIJ[i][j] = weightIJ[i][j] + deltaweightIJ[i][j];
                 Logger.debugLog("Weight of hidden neuron  "+i+1+" and input "+j+ " is : "+weightIJ[i][j]);
             }
         }
