@@ -1,13 +1,12 @@
-package com.ravi.BackProp.Examples;
+package com.ravi.MultiLayerPerceptron.Examples;
 
-import com.ravi.BackProp.AF.LinearAF;
-import com.ravi.BackProp.AF.SigmoidAF;
-import com.ravi.BackProp.Error.LinearEF;
-import com.ravi.BackProp.Error.RMSE;
-import com.ravi.BackProp.Learning.LearningAlgorithm;
-import com.ravi.BackProp.Learning.OnlineLearning;
-import com.ravi.BackProp.MLP.MLPerceptron;
-import com.ravi.BackProp.Training.BackPropagration;
+import com.ravi.MultiLayerPerceptron.AF.LinearAF;
+import com.ravi.MultiLayerPerceptron.AF.SigmoidAF;
+import com.ravi.MultiLayerPerceptron.Error.RMSE;
+import com.ravi.MultiLayerPerceptron.Learning.LearningAlgorithm;
+import com.ravi.MultiLayerPerceptron.Learning.OnlineLearning;
+import com.ravi.MultiLayerPerceptron.MLP.MLPerceptron;
+import com.ravi.MultiLayerPerceptron.Training.BackPropagration;
 
 import java.text.DecimalFormat;
 

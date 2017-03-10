@@ -1,7 +1,7 @@
-package com.ravi.BackProp.MLP;
+package com.ravi.MultiLayerPerceptron.MLP;
 
-import com.ravi.BackProp.AF.ActivationFunction;
-import com.ravi.BackProp.Utils.Logger;
+import com.ravi.MultiLayerPerceptron.AF.ActivationFunction;
+import com.ravi.MultiLayerPerceptron.Utils.Logger;
 
 /**
  * Created by 611445924 on 06/03/2017.

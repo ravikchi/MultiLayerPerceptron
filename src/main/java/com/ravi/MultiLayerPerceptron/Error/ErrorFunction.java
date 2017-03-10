@@ -1,4 +1,4 @@
-package com.ravi.BackProp.Error;
+package com.ravi.MultiLayerPerceptron.Error;
 
 /**
  * Created by 611445924 on 08/03/2017.

@@ -1,4 +1,4 @@
-package com.ravi.BackProp;
+package com.ravi.MultiLayerPerceptron;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

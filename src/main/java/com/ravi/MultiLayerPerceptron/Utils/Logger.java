@@ -1,4 +1,4 @@
-package com.ravi.BackProp.Utils;
+package com.ravi.MultiLayerPerceptron.Utils;
 
 /**
  * Created by 611445924 on 10/03/2017.

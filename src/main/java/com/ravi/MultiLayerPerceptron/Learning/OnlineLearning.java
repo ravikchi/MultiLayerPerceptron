@@ -1,9 +1,12 @@
-package com.ravi.BackProp.Learning;
+package com.ravi.MultiLayerPerceptron.Learning;
 
-import com.ravi.BackProp.Error.ErrorFunction;
-import com.ravi.BackProp.MLP.MLPerceptron;
-import com.ravi.BackProp.Training.TrainingAlgorithm;
-import com.ravi.BackProp.Utils.Logger;
+import com.ravi.MultiLayerPerceptron.Error.ErrorFunction;
+import com.ravi.MultiLayerPerceptron.MLP.MLPerceptron;
+import com.ravi.MultiLayerPerceptron.Training.TrainingAlgorithm;
+import com.ravi.MultiLayerPerceptron.Utils.ArrayUtils;
+import com.ravi.MultiLayerPerceptron.Utils.Logger;
+
+import java.util.Random;
 
 /**
  * Created by 611445924 on 08/03/2017.

@@ -1,6 +1,4 @@
-package com.ravi.BackProp.Learning;
-
-import com.ravi.BackProp.MLP.MLPerceptron;
+package com.ravi.MultiLayerPerceptron.Learning;
 
 /**
  * Created by 611445924 on 08/03/2017.

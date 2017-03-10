@@ -1,7 +1,7 @@
-package com.ravi.BackProp;
+package com.ravi.MultiLayerPerceptron;
 
-import com.ravi.BackProp.AF.ActivationFunction;
-import com.ravi.BackProp.AF.SigmoidAF;
+import com.ravi.MultiLayerPerceptron.AF.ActivationFunction;
+import com.ravi.MultiLayerPerceptron.AF.SigmoidAF;
 
 /**
  * Hello world!

@@ -1,9 +1,8 @@
-package com.ravi.BackProp.Examples;
+package com.ravi.MultiLayerPerceptron.Examples;
 
-import com.ravi.BackProp.AF.LinearAF;
-import com.ravi.BackProp.AF.SigmoidAF;
-import com.ravi.BackProp.AF.StepFunction;
-import com.ravi.BackProp.MLP.MLPerceptron;
+import com.ravi.MultiLayerPerceptron.AF.LinearAF;
+import com.ravi.MultiLayerPerceptron.AF.SigmoidAF;
+import com.ravi.MultiLayerPerceptron.MLP.MLPerceptron;
 
 /**
  * Created by 611445924 on 08/03/2017.
