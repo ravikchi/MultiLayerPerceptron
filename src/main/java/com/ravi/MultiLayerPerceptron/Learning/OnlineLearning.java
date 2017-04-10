@@ -16,12 +16,15 @@ public class OnlineLearning implements LearningAlgorithm {
     private TrainingAlgorithm trainingAlgorithm;
     private ErrorFunction ef;
     private MLPerceptron perceptron;
+    private MLPerceptron bestWeights;
+    private double bestValidationError = Double.MAX_VALUE;
 
     public OnlineLearning(double validationSize, TrainingAlgorithm trainingAlgorithm, ErrorFunction ef, MLPerceptron perceptron) {
         this.validationSize = validationSize;
         this.trainingAlgorithm = trainingAlgorithm;
         this.ef = ef;
         this.perceptron = perceptron;
+        this.bestWeights = perceptron;
     }
 
     private double calculateError(double[] input, double[] outputs){
@@ -97,14 +100,23 @@ public class OnlineLearning implements LearningAlgorithm {
                 validationErrorsCount = 0;
             }else{
                 validationErrorsCount++;
-                if(validationErrorsCount > 100) {
+                if(validationErrorsCount > 1000) {
                     break;
                 }
             }
             oldValidationError = validationError;
+
+            if(validationError < bestValidationError){
+                bestValidationError = validationError;
+                bestWeights.setWeightKI(perceptron.getWeightKI());
+                bestWeights.setWeightIJ(perceptron.getWeightIJ());
+            }
+
             Logger.log("##################################################################################################################");
             count++;
         }
+
+        perceptron = bestWeights;
 
     }
 }

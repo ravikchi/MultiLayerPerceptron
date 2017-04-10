@@ -56,8 +56,6 @@ public class SineLearning {
         LearningAlgorithm learn = new OnlineLearning(0.2, new BackPropagration(0.1, 0.01), new RMSE(), perceptron);
         learn.train(trainingData, trainingOutputs);
 
-
-
         for(int t=0; t<testData.length; t++) {
             double[] output = perceptron.getOutput(testData[t]);
             System.out.println("NN Output :"+output[0]);

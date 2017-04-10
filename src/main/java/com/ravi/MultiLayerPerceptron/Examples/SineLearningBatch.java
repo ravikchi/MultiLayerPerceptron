@@ -49,7 +49,7 @@ public class SineLearningBatch {
             trainingOutputs[t-testSize][0] = Math.sin(2*Math.PI*inputs[t][0]);
         }
 
-        MLPerceptron perceptron = new MLPerceptron(new LinearAF(),new SigmoidAF(1.0), 10, 1, 1);
+        MLPerceptron perceptron = new MLPerceptron(new LinearAF(),new SigmoidAF(1.0), 20, 1, 1);
 
         LearningAlgorithm learn = new BatchLearning(0.2, new BackPropagration(0.1, 0.01), new RMSE(), perceptron);
         learn.train(trainingData, trainingOutputs);

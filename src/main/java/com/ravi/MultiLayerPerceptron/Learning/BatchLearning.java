@@ -68,31 +68,6 @@ public class BatchLearning implements LearningAlgorithm {
         }
 
         perceptron.updateWeightKI(deltaWeightsKI);
-
-        for(int t=0; t<trainingSetSize; t++){
-            double[] actOutputs = perceptron.getOutput(inputs[t]);
-            double ekt = localError(outputs[t], actOutputs);
-            totalError = totalError + calculateError(inputs[t], outputs[t]);
-
-            Logger.debugLog("Running online learning for input "+t);
-            StringBuilder msg = new StringBuilder("Inputs are ");
-            for(int j=0; j<inputs[t].length; j++){
-                msg.append(inputs[t][j] + " ");
-            }
-            Logger.debugLog(msg.toString());
-            Logger.debugLog("Desired Output "+outputs[t][0]);
-            Logger.debugLog("Actual Output "+actOutputs[0]);
-            Logger.debugLog("Error "+ekt);
-
-            trainingAlgorithm.initialise(perceptron, t);
-
-            double[][] localDeltaWeightsIJ = trainingAlgorithm.calculateDeltaWeightIJ(inputs[t], ekt, trainingAlgorithm.calculateDeltaI(inputs[t], ekt));
-            deltaWeightsIJ = updateDeltaWeights(localDeltaWeightsIJ, deltaWeightsIJ);
-
-
-            Logger.debugLog("Finished online learning for input "+t);
-            Logger.debugLog("*****************************************************************************************************************");
-        }
         perceptron.updateWeightIJ(deltaWeightsIJ);
 
         return totalError;
