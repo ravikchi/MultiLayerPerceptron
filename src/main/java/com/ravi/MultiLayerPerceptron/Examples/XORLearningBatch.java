@@ -1,11 +1,10 @@
 package com.ravi.MultiLayerPerceptron.Examples;
 
-import com.ravi.MultiLayerPerceptron.AF.LinearAF;
-import com.ravi.MultiLayerPerceptron.AF.SigmoidAF;
-import com.ravi.MultiLayerPerceptron.Error.RMSE;
+import com.ravi.AF.LinearAF;
+import com.ravi.AF.SigmoidAF;
+import com.ravi.Error.RMSE;
 import com.ravi.MultiLayerPerceptron.Learning.BatchLearning;
 import com.ravi.MultiLayerPerceptron.Learning.LearningAlgorithm;
-import com.ravi.MultiLayerPerceptron.Learning.OnlineLearning;
 import com.ravi.MultiLayerPerceptron.MLP.MLPerceptron;
 import com.ravi.MultiLayerPerceptron.Training.BackPropagration;
 

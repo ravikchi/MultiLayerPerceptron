@@ -1,7 +1,7 @@
 package com.ravi.MultiLayerPerceptron.Examples;
 
-import com.ravi.MultiLayerPerceptron.AF.LinearAF;
-import com.ravi.MultiLayerPerceptron.AF.SigmoidAF;
+import com.ravi.AF.LinearAF;
+import com.ravi.AF.SigmoidAF;
 import com.ravi.MultiLayerPerceptron.MLP.MLPerceptron;
 
 /**

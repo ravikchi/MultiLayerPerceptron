@@ -1,12 +1,9 @@
 package com.ravi.MultiLayerPerceptron.Learning;
 
-import com.ravi.MultiLayerPerceptron.Error.ErrorFunction;
+import com.ravi.Error.ErrorFunction;
 import com.ravi.MultiLayerPerceptron.MLP.MLPerceptron;
 import com.ravi.MultiLayerPerceptron.Training.TrainingAlgorithm;
-import com.ravi.MultiLayerPerceptron.Utils.ArrayUtils;
-import com.ravi.MultiLayerPerceptron.Utils.Logger;
-
-import java.util.Random;
+import com.ravi.Utils.Logger;
 
 /**
  * Created by 611445924 on 08/03/2017.

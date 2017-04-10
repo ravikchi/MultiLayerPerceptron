@@ -1,7 +1,7 @@
 package com.ravi.MultiLayerPerceptron;
 
-import com.ravi.MultiLayerPerceptron.AF.ActivationFunction;
-import com.ravi.MultiLayerPerceptron.AF.SigmoidAF;
+import com.ravi.AF.ActivationFunction;
+import com.ravi.AF.SigmoidAF;
 
 /**
  * Hello world!

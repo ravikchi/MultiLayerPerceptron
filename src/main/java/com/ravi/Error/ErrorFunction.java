@@ -1,4 +1,4 @@
-package com.ravi.MultiLayerPerceptron.Error;
+package com.ravi.Error;
 
 /**
  * Created by 611445924 on 08/03/2017.

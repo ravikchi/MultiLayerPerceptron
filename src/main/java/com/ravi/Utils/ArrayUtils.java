@@ -1,4 +1,4 @@
-package com.ravi.MultiLayerPerceptron.Utils;
+package com.ravi.Utils;
 
 import java.util.Random;
 

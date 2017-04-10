@@ -1,4 +1,4 @@
-package com.ravi.MultiLayerPerceptron.Utils;
+package com.ravi.Utils;
 
 /**
  * Created by 611445924 on 09/03/2017.
@@ -64,6 +64,16 @@ public class MatrixMath {
             for (int j = 0; j < n; j++)
                 b[j][i] = a[i][j];
         return b;
+    }
+
+    public static double[] add(double[] a, double[] b){
+        int m = a.length;
+        double[] c = new double[m];
+        for(int i=0; i<m; i++){
+            c[i] = a[i]+b[i];
+        }
+
+        return c;
     }
 
     // return c = a + b
