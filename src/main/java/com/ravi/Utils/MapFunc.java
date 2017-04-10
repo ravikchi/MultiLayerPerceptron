@@ -8,10 +8,16 @@ import java.util.List;
  * Created by 611445924 on 10/04/2017.
  */
 public class MapFunc {
-    public static double[] map(ActivationFunction af, double[] output){
+    public static double[] map(ActivationFunction af, double[] output, boolean activate){
         double[] returnOut = new double[output.length];
         for(int i=0; i<output.length; i++){
-            returnOut[i] = af.activate(output[i]);
+            double val = 0.0;
+            if(activate){
+                val = af.activate(output[i]);
+            }else{
+                val = af.derivative(output[i]);
+            }
+            returnOut[i] = val;
         }
 
         return returnOut;

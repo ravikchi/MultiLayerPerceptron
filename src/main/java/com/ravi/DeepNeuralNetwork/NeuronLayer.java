@@ -20,7 +20,14 @@ public class NeuronLayer {
 
     public double[] getOutput(double[] input){
         double output[] = MatrixMath.multiply(weights, input);
-        return MapFunc.map(activationFunction, MatrixMath.add(output, bias));
+        return MapFunc.map(activationFunction, MatrixMath.add(output, bias), true);
+    }
+
+    public double[] getDelta(double[] input, double[] error){
+        double output[] = MatrixMath.multiply(weights, input);
+        output = MapFunc.map(activationFunction, MatrixMath.add(output, bias), false);//get the derivative of the inputs
+
+        return MatrixMath.arrayProduct(output, error); //multiply the derivative of the inputs with the error
     }
 
     public double[][] getWeights() {

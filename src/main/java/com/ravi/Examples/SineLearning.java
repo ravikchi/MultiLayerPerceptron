@@ -1,4 +1,4 @@
-package com.ravi.MultiLayerPerceptron.Examples;
+package com.ravi.Examples;
 
 import com.ravi.AF.LinearAF;
 import com.ravi.AF.SigmoidAF;

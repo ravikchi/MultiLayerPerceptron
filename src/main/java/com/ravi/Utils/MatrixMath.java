@@ -29,6 +29,22 @@ public class MatrixMath {
         return aMinusB;
     }
 
+    public static double scalarValue(double[] a){
+        double c = 0.0;
+        for(int i=0; i<a.length; i++){
+            c = a[i]+ c;
+        }
+        return c;
+    }
+
+    public static double[] substract(double[] a, double[] b){
+        double[] c = new double[a.length];
+        for(int i=0; i<a.length; i++){
+            c[i] = a[i]-b[i];
+        }
+        return c;
+    }
+
     // return a random m-by-n matrix with values between 0 and 1
     public static double[][] random(int m, int n) {
         double[][] a = new double[m][n];
@@ -44,6 +60,24 @@ public class MatrixMath {
         for (int i = 0; i < n; i++)
             a[i][i] = 1;
         return a;
+    }
+
+    public static double[] scalarProduct(double[] a, double s){
+        double[] c = new double[a.length];
+        for(int i=0; i<a.length; i++){
+            c[i] = a[i] * s;
+        }
+
+        return c;
+    }
+
+    public static double[] arrayProduct(double[] a, double[] b){
+        double[] c = new double[a.length];
+        for(int i=0; i<a.length; i++){
+            c[i] = a[i] * b[i];
+        }
+
+        return c;
     }
 
     // return x^T y
