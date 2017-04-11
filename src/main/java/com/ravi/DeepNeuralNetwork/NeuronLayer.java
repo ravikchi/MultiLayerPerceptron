@@ -10,12 +10,26 @@ import com.ravi.Utils.MatrixMath;
 public class NeuronLayer {
     private ActivationFunction activationFunction;
     private double weights[][];
+    private double oldWeights[][];
     private double bias[];
+    private double oldBias[];
 
     public NeuronLayer(ActivationFunction activationFunction, int numberOfInputs, int numberOfNeurons) {
         this.activationFunction = activationFunction;
         weights = new double[numberOfNeurons][numberOfInputs];
+        oldWeights = new double[numberOfNeurons][numberOfInputs];
         bias = new double[numberOfNeurons];
+        oldBias = new double[numberOfNeurons];
+        initialise();
+    }
+
+    private void initialise(){
+        for(int i=0; i<weights.length; i++){
+            for(int j=0; j<weights[i].length; j++){
+                weights[i][j] = Math.random();
+            }
+            bias[i] = Math.random();
+        }
     }
 
     public double[] getOutput(double[] input){
@@ -44,5 +58,21 @@ public class NeuronLayer {
 
     public void setBias(double[] bias) {
         this.bias = bias;
+    }
+
+    public double[][] getOldWeights() {
+        return oldWeights;
+    }
+
+    public void setOldWeights(double[][] oldWeights) {
+        this.oldWeights = oldWeights;
+    }
+
+    public double[] getOldBias() {
+        return oldBias;
+    }
+
+    public void setOldBias(double[] oldBias) {
+        this.oldBias = oldBias;
     }
 }
