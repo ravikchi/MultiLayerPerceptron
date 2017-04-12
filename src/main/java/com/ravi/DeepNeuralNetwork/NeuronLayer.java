@@ -23,6 +23,13 @@ public class NeuronLayer {
         initialise();
     }
 
+    public NeuronLayer clone(){
+        NeuronLayer newLayer = new NeuronLayer(this.activationFunction, weights[0].length, weights.length);
+        newLayer.setWeights(weights);
+        newLayer.setBias(bias);
+        return newLayer;
+    }
+
     private void initialise(){
         for(int i=0; i<weights.length; i++){
             for(int j=0; j<weights[i].length; j++){

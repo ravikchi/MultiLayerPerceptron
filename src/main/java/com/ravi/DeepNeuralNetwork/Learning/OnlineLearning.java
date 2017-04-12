@@ -18,14 +18,33 @@ public class OnlineLearning implements LearningAlgorithm {
     NeuralNetwork network;
     private ErrorFunction ef = new RMSE();
 
+    public double getValidationSize() {
+        return validationSize;
+    }
+
+    public void setValidationSize(double validationSize) {
+        this.validationSize = validationSize;
+    }
+
+    private double validationSize =0.0;
+    private NeuralNetwork bestWeights;
+    private double bestValidationError = Double.MAX_VALUE;
+
     public OnlineLearning(BackPropagation trainingAlgo, NeuralNetwork network) {
         this.trainingAlgo = trainingAlgo;
         this.network = network;
+        this.bestWeights = network;
     }
 
-    public double epoch(double[][] inputs, double[][] outputs){
+    public OnlineLearning(TrainingAlgorithm trainingAlgo, NeuralNetwork network, double validationSize) {
+        this.trainingAlgo = trainingAlgo;
+        this.network = network;
+        this.validationSize = validationSize;
+    }
+
+    public double epoch(double[][] inputs, double[][] outputs, int trainingSetSize){
         double totalError = 0.0;
-        for(int t=0; t<inputs.length; t++){
+        for(int t=0; t<trainingSetSize; t++){
             double[] input = inputs[t];
             double[] actOutput = network.getOutput(input);
 
@@ -47,7 +66,7 @@ public class OnlineLearning implements LearningAlgorithm {
 
                 //get the input to the layer
                 double[] localInput = network.getOutput(input, i-1);
-                double[] localError = network.getError(localInput, error, i+1);
+                double[] localError = network.getError(network.getOutput(input, i), error, i+1);
 
                 //Calculate the Delta Weigths
                 DeltaWeights deltaWeights = trainingAlgo.train(layer, localInput, localError);
@@ -67,6 +86,19 @@ public class OnlineLearning implements LearningAlgorithm {
         return totalError;
     }
 
+    private double validation(double[][] inputs, double[][] outputs, int trainingSetSize){
+        double totalError = 0.0;
+        for(int t=0; t<trainingSetSize; t++) {
+            double[] input = inputs[t];
+            double[] actOutput = network.getOutput(input);
+
+            double[] error = MatrixMath.substract(outputs[t], actOutput);
+            totalError = totalError + ef.error(outputs[t], actOutput);
+        }
+
+        return totalError;
+    }
+
 
 
     private void logWeights(double[][] weights, String str){
@@ -81,15 +113,37 @@ public class OnlineLearning implements LearningAlgorithm {
         }
     }
 
-    public void train(double[][] inputs, double[][] outputs) {
-        for(int t=0; t<10000; t++) {
+    public NeuralNetwork train(double[][] inputs, double[][] outputs) {
+        int trainingSetSize = (int) (inputs.length- inputs.length*validationSize);
+        double oldValidationError = Double.POSITIVE_INFINITY;
+        int validationErrorsCount = 0;
+        for(int t=0; t<50000; t++) {
             Logger.log("Running Epoch Number "+t);
-            double error = epoch(inputs, outputs);
+            double error = epoch(inputs, outputs, trainingSetSize);
             if(error < 0.000001){
                 break;
             }
+            double validationError = validation(inputs, outputs, trainingSetSize);
+            Logger.log("Validation Error "+validationError);
+            if(oldValidationError >= validationError){
+                validationErrorsCount = 0;
+            }else{
+                validationErrorsCount++;
+                if(validationErrorsCount > 10000) {
+                    break;
+                }
+            }
+            oldValidationError = validationError;
+
+            if(validationError < bestValidationError){
+                bestValidationError = validationError;
+                bestWeights = network.clone();
+            }
+
             Logger.log("Finished Epoch Number "+t);
             Logger.log("##################################################################################################################");
         }
+
+        return bestWeights;
     }
 }

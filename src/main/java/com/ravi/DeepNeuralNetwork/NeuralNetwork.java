@@ -1,5 +1,6 @@
 package com.ravi.DeepNeuralNetwork;
 
+import com.ravi.AF.ActivationFunction;
 import com.ravi.Utils.MatrixMath;
 
 import java.util.ArrayList;
@@ -18,6 +19,18 @@ public class NeuralNetwork {
         layers.add(layer);
     }
 
+    public void addLayer(ActivationFunction activationFunction, int numberOfInputs, int numberOfNeurons){
+        layers.add(new NeuronLayer(activationFunction, numberOfInputs, numberOfNeurons));
+    }
+
+    public NeuralNetwork clone(){
+        NeuralNetwork newNetwork = new NeuralNetwork();
+        for(int i=0; i<size(); i++) {
+            newNetwork.addLayer(layers.get(i).clone());
+        }
+        return newNetwork;
+    }
+
     public double[] getOutput(double[] input){
         double[] curInput = input;
         layerMap.clear();
@@ -31,7 +44,7 @@ public class NeuralNetwork {
 
     public double[] getOutput(double[] input, int id){
         double[] curInput = input;
-        if (id > 0) {
+        if (id >= 0) {
             for (int i = 0; i < layers.size(); i++) {
                 NeuronLayer layer = layers.get(i);
                 curInput = layer.getOutput(curInput);
