@@ -63,7 +63,7 @@ public class NeuralNetwork {
         }
         for(int i=layers.size()-1; i>=0; i--){
             NeuronLayer layer = layers.get(i);
-            double[] delta = layer.getDelta(input, curError);
+            double[] delta = layer.getDelta(getOutput(input, i-1), curError);
             double[][] weightsT = MatrixMath.transpose(layer.getWeights());
             curError = MatrixMath.multiply(weightsT, delta);
             if(i==id){

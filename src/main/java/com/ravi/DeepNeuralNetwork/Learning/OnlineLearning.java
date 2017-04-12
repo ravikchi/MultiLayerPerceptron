@@ -66,7 +66,7 @@ public class OnlineLearning implements LearningAlgorithm {
 
                 //get the input to the layer
                 double[] localInput = network.getOutput(input, i-1);
-                double[] localError = network.getError(network.getOutput(input, i), error, i+1);
+                double[] localError = network.getError(input, error, i+1);
 
                 //Calculate the Delta Weigths
                 DeltaWeights deltaWeights = trainingAlgo.train(layer, localInput, localError);
