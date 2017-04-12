@@ -186,6 +186,14 @@ public class MatrixMath {
         return b;
     }
 
+    public static double[] copy(double[] a){
+        double[] c = new double[a.length];
+        for(int i=0; i<a.length; i++){
+            c[i] = a[i];
+        }
+        return c;
+    }
+
     private static boolean inValidMatrix(double[][] a){
         if(a== null ){
             return true;

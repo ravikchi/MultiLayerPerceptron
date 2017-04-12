@@ -1,5 +1,6 @@
 package com.ravi.DeepNeuralNetwork.Training;
 
+import com.ravi.DeepNeuralNetwork.DeltaWeights;
 import com.ravi.DeepNeuralNetwork.NeuronLayer;
 import com.ravi.Utils.MatrixMath;
 
@@ -16,16 +17,23 @@ public class BackPropagation implements TrainingAlgorithm {
         this.alpha = alpha;
     }
 
-    public double[][] train(NeuronLayer layer, double[] input, double[] error) {
+    public DeltaWeights train(NeuronLayer layer, double[] input, double[] error) {
         double[] deltaL = layer.getDelta(input, error);
 
         double[][] oldDeltaWeights = layer.getOldWeights();
-        double[][] deltaWeigths = layer.getWeights();
+        double[][] deltaWeigths = MatrixMath.copy(layer.getWeights());
+
+        double[] oldBias = layer.getOldBias();
+        double[] deltaBias = MatrixMath.copy(layer.getBias());
         for (int j = 0; j < deltaL.length; j++) {
             deltaWeigths[j] = MatrixMath.add(MatrixMath.scalarProduct(input, deltaL[j] * learningRate), MatrixMath.scalarProduct(oldDeltaWeights[j], alpha));
+            deltaBias[j] = deltaL[j] * learningRate + oldBias[j]*alpha;
         }
 
         layer.setOldWeights(MatrixMath.copy(deltaWeigths));
-        return deltaWeigths;
+        layer.setOldBias(MatrixMath.copy(deltaBias));
+
+        DeltaWeights weights = new DeltaWeights(deltaWeigths, deltaBias);
+        return weights;
     }
 }
