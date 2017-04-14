@@ -17,18 +17,12 @@ public class OnlineLearning implements LearningAlgorithm {
     TrainingAlgorithm trainingAlgo;
     NeuralNetwork network;
     private ErrorFunction ef = new RMSE();
-
-    public double getValidationSize() {
-        return validationSize;
-    }
-
-    public void setValidationSize(double validationSize) {
-        this.validationSize = validationSize;
-    }
-
     private double validationSize =0.0;
     private NeuralNetwork bestWeights;
     private double bestValidationError = Double.MAX_VALUE;
+    private int numberOfEpoches = 50000;
+    private double earlyStopCriteria = 0.000001;
+    private int validationStopCriteria = 10000;
 
     public OnlineLearning(BackPropagation trainingAlgo, NeuralNetwork network) {
         this.trainingAlgo = trainingAlgo;
@@ -117,10 +111,14 @@ public class OnlineLearning implements LearningAlgorithm {
         int trainingSetSize = (int) (inputs.length- inputs.length*validationSize);
         double oldValidationError = Double.POSITIVE_INFINITY;
         int validationErrorsCount = 0;
-        for(int t=0; t<50000; t++) {
-            Logger.log("Running Epoch Number "+t);
+        int count =0;
+        while(true) {
+            if(numberOfEpoches >= 0 && count >= numberOfEpoches){
+                break;
+            }
+            Logger.log("Running Epoch Number "+count);
             double error = epoch(inputs, outputs, trainingSetSize);
-            if(error < 0.000001){
+            if(error < earlyStopCriteria){
                 break;
             }
             double validationError = validation(inputs, outputs, trainingSetSize);
@@ -129,7 +127,7 @@ public class OnlineLearning implements LearningAlgorithm {
                 validationErrorsCount = 0;
             }else{
                 validationErrorsCount++;
-                if(validationErrorsCount > 10000) {
+                if(validationErrorsCount > validationStopCriteria) {
                     break;
                 }
             }
@@ -140,10 +138,21 @@ public class OnlineLearning implements LearningAlgorithm {
                 bestWeights = network.clone();
             }
 
-            Logger.log("Finished Epoch Number "+t);
+            Logger.log("Finished Epoch Number "+count);
             Logger.log("##################################################################################################################");
+            count++;
         }
 
         return bestWeights;
+    }
+
+    public void validation(double percentage, int earlyStopCount) {
+        this.validationSize = percentage;
+        this.validationStopCriteria = earlyStopCount;
+    }
+
+    public void stoppingCriteria(int numberOfEpoches, double minimumError) {
+        this.numberOfEpoches = numberOfEpoches;
+        this.earlyStopCriteria = minimumError;
     }
 }

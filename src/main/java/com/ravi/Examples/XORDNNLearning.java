@@ -24,6 +24,7 @@ public class XORDNNLearning {
         double[][] outputs = {{1}, {1}, {0}, {0}};
 
         LearningAlgorithm learning = new OnlineLearning(new BackPropagation(0.1, 0.01), network);
+        learning.stoppingCriteria(-1, 0.000001);
         learning.train(inputs, outputs);
         DecimalFormat df2 = new DecimalFormat(".#####");
 

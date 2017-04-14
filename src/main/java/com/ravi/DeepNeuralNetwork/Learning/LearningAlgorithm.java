@@ -7,4 +7,6 @@ import com.ravi.DeepNeuralNetwork.NeuralNetwork;
  */
 public interface LearningAlgorithm {
     public NeuralNetwork train(double[][] inputs, double[][] outputs);
+    public void validation(double percentage, int earlyStopCount);
+    public void stoppingCriteria(int numberOfEpoches, double minimumError);
 }

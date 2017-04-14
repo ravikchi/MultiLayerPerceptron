@@ -56,6 +56,8 @@ public class SineDNNLearning {
         neuralNetwork.addLayer(new LinearAF(), 3, 1);
 
         LearningAlgorithm learningAlgorithm = new OnlineLearning(new BackPropagation(0.09, 0.01), neuralNetwork, 0.2);
+        learningAlgorithm.validation(0.2, 10000);
+        learningAlgorithm.stoppingCriteria(-1, 0.999);
         neuralNetwork = learningAlgorithm.train(trainingData, trainingOutputs);
 
         for(int t=0; t<testData.length; t++) {
