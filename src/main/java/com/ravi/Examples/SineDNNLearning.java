@@ -51,11 +51,10 @@ public class SineDNNLearning {
         }
 
         NeuralNetwork neuralNetwork = new NeuralNetwork();
-        neuralNetwork.addLayer(new SigmoidAF(1.0), 1, 8);
-        neuralNetwork.addLayer(new SigmoidAF(1.0), 8,3);
-        neuralNetwork.addLayer(new LinearAF(), 3, 1);
+        neuralNetwork.addLayer(new SigmoidAF(1.0), 1, 10);
+        neuralNetwork.addLayer(new LinearAF(), 10, 1);
 
-        LearningAlgorithm learningAlgorithm = new OnlineLearning(new BackPropagation(0.09, 0.01), neuralNetwork, 0.2);
+        LearningAlgorithm learningAlgorithm = new OnlineLearning(new BackPropagation(0.1, 0.01), neuralNetwork, 0.2);
         learningAlgorithm.validation(0.2, 10000);
         learningAlgorithm.stoppingCriteria(-1, 0.999);
         neuralNetwork = learningAlgorithm.train(trainingData, trainingOutputs);
