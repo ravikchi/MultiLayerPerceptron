@@ -6,8 +6,6 @@ import com.ravi.DeepNNND4J.Error.ErrorFunction;
 import com.ravi.Utils.Logger;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
-import org.nd4j.linalg.indexing.conditions.GreaterThanOrEqual;
-import org.nd4j.linalg.indexing.conditions.LessThan;
 
 /**
  * Created by 611445924 on 18/04/2017.
@@ -23,9 +21,11 @@ public class XORDNNLearning {
         int count=0;
         double error = 0.0;
         while(count<50000){
+            Logger.log("Starting Epoch "+count);
             error = epoch(inputs, desOutputs, layer1, layer2);
+            Logger.log("Finished Epoch "+count);
             Logger.log("Total Error "+error);
-            if(error < 0.01){
+            if(error < 0.0000001){
                 break;
             }
             count++;
@@ -36,11 +36,11 @@ public class XORDNNLearning {
 
         for(int i=0; i<inputs.columns(); i++) {
             INDArray input = inputs.getColumn(i);
-            INDArray desOutput = desOutputs.getColumn(i);
+            System.out.println(input);
 
             INDArray outputH = layer1.getOutput(input);
             INDArray outputY = layer2.getOutput(outputH);
-            Logger.debugLog("Output :"+ outputY);
+            System.out.println("Output :"+ outputY);
         }
 
     }
@@ -94,10 +94,9 @@ public class XORDNNLearning {
 
         deltaY = deltaY.mul(0.1);
 
-        for(int j=0; j<deltaWeightsY.rows(); j++){
-            INDArray temp = input.mul(deltaY);
-            deltaWeightsY.putRow(j, input.transpose().mul(deltaY));
-            deltaBiasY.putRow(j, deltaY);
+        for(int j=0; j<deltaY.rows(); j++){
+            deltaWeightsY.putRow(j, input.transpose().mul(deltaY.getRow(j)));
+            deltaBiasY.putRow(j, deltaY.getRow(j));
         }
 
         layer.setWeights(layer.getWeights().add(deltaWeightsY));

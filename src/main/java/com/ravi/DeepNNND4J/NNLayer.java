@@ -8,9 +8,13 @@ import org.nd4j.linalg.factory.Nd4j;
  * Created by 611445924 on 18/04/2017.
  */
 public class NNLayer {
+    private ActivationFunction activationFunction;
     private INDArray weights;
     private INDArray bias;
-    private ActivationFunction activationFunction;
+
+    private INDArray oldDeltaWeights;
+    private INDArray oldDeltaBias;
+
 
     public NNLayer(ActivationFunction activationFunction, int numberOfInputs, int numberOfNeurons) {
         this.activationFunction = activationFunction;
@@ -30,7 +34,17 @@ public class NNLayer {
         output.addi(bias);
 
         output = activationFunction.derivative(output);
-        return output.transpose().mmul(error);
+        //return output.transpose().mmul(error);
+        return product(output, error);
+    }
+
+    private INDArray product(INDArray a, INDArray b){
+        INDArray c = Nd4j.zeros(a.rows(), a.columns());
+        for(int i=0; i<a.linearView().length(); i++){
+            c.linearView().putScalar(i, a.linearView().getDouble(i) * b.linearView().getDouble(i));
+        }
+
+        return c;
     }
 
     public INDArray getWeights() {
