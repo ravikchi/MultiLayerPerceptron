@@ -1,9 +1,10 @@
-package com.ravi.DeepNNND4J;
+package com.ravi.DeepNNND4J.Examples;
 
 import com.ravi.DeepNNND4J.AF.LinearAF;
 import com.ravi.DeepNNND4J.AF.SigmoidAF;
 import com.ravi.DeepNNND4J.Learning.LearningAlgorithm;
 import com.ravi.DeepNNND4J.Learning.OnlineLearning;
+import com.ravi.DeepNNND4J.NNetworkND4j;
 import com.ravi.DeepNNND4J.Training.BackPropagation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
@@ -20,7 +21,7 @@ public class LearningTest {
         network.addLayer(new SigmoidAF(), 2,2);
         network.addLayer(new LinearAF(), 2, 1);
 
-        LearningAlgorithm learningAlgorithm = new OnlineLearning(network, new BackPropagation());
+        LearningAlgorithm learningAlgorithm = new OnlineLearning(network, new BackPropagation(0.1, 0.01));
         network = learningAlgorithm.train(inputs, desOutputs);
 
         for(int i=0; i<inputs.columns(); i++) {

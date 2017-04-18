@@ -1,9 +1,11 @@
-package com.ravi.DeepNNND4J;
+package com.ravi.DeepNNND4J.Examples;
 
 import com.ravi.DeepNNND4J.AF.LinearAF;
 import com.ravi.DeepNNND4J.AF.SigmoidAF;
+import com.ravi.DeepNNND4J.Learning.EarlyStopCriteria;
 import com.ravi.DeepNNND4J.Learning.LearningAlgorithm;
 import com.ravi.DeepNNND4J.Learning.OnlineLearning;
+import com.ravi.DeepNNND4J.NNetworkND4j;
 import com.ravi.DeepNNND4J.Training.BackPropagation;
 import com.ravi.Utils.ArrayUtils;
 import org.nd4j.linalg.api.ndarray.INDArray;
@@ -58,7 +60,8 @@ public class SineTest {
         network.addLayer(new SigmoidAF(), 1, 10);
         network.addLayer(new LinearAF(), 10, 1);
 
-        LearningAlgorithm learningAlgorithm = new OnlineLearning(network, new BackPropagation());
+        LearningAlgorithm learningAlgorithm = new OnlineLearning(network, new BackPropagation(0.1, 0.01));
+        learningAlgorithm.setEarlyStopCriteria(new EarlyStopCriteria(0.2, 5000, 0.000001, 1000));
         network = learningAlgorithm.train(trainingInput.transpose(), trainingOutput.transpose());
 
         INDArray testInput = Nd4j.create(testData);

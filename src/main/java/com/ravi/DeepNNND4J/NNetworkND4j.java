@@ -16,6 +16,19 @@ public class NNetworkND4j {
         network.add(new NNLayer(activationFunction, numberOfInputs, numberOfNeurons));
     }
 
+    public void addLayer(NNLayer layer){
+        network.add(layer);
+    }
+
+    public NNetworkND4j getClone(){
+        NNetworkND4j newNetwork = new NNetworkND4j();
+        for(NNLayer layer : network){
+            newNetwork.addLayer(layer.clone());
+        }
+
+        return newNetwork;
+    }
+
     public INDArray getOutput(INDArray input){
         INDArray curInput = input;
         for(int i=0; i<network.size(); i++){

@@ -1,8 +1,9 @@
-package com.ravi.DeepNNND4J;
+package com.ravi.DeepNNND4J.Examples;
 
 import com.ravi.DeepNNND4J.AF.LinearAF;
 import com.ravi.DeepNNND4J.AF.SigmoidAF;
 import com.ravi.DeepNNND4J.Error.ErrorFunction;
+import com.ravi.DeepNNND4J.NNLayer;
 import com.ravi.Utils.Logger;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;

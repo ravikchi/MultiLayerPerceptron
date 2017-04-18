@@ -8,4 +8,5 @@ import org.nd4j.linalg.api.ndarray.INDArray;
  */
 public interface LearningAlgorithm {
     public NNetworkND4j train(INDArray inputs, INDArray outputs);
+    public void setEarlyStopCriteria(EarlyStopCriteria earlyStopCriteria);
 }

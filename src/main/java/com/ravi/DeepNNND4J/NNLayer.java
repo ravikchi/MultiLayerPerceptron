@@ -25,6 +25,17 @@ public class NNLayer {
         this.oldDeltaBias = Nd4j.zeros(numberOfNeurons, 1);
     }
 
+    public NNLayer clone(){
+        NNLayer layer = new NNLayer(activationFunction, weights.columns(), weights.rows());
+        layer.setWeights(this.weights.dup());
+        layer.setBias(this.bias.dup());
+
+        layer.setOldDeltaWeights(this.oldDeltaWeights.dup());
+        layer.setOldDeltaBias(this.oldDeltaBias.dup());
+
+        return layer;
+    }
+
     public INDArray getOutput(INDArray input){
         INDArray output = weights.mmul(input);
         output.addi(bias);
