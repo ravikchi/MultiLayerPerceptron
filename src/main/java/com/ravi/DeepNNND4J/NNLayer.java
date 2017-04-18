@@ -20,6 +20,9 @@ public class NNLayer {
         this.activationFunction = activationFunction;
         this.weights = Nd4j.rand(numberOfNeurons, numberOfInputs);
         this.bias = Nd4j.rand(numberOfNeurons, 1);
+
+        this.oldDeltaWeights = Nd4j.zeros(numberOfNeurons, numberOfInputs);
+        this.oldDeltaBias = Nd4j.zeros(numberOfNeurons, 1);
     }
 
     public INDArray getOutput(INDArray input){
@@ -61,5 +64,21 @@ public class NNLayer {
 
     public void setBias(INDArray bias) {
         this.bias = bias;
+    }
+
+    public INDArray getOldDeltaWeights() {
+        return oldDeltaWeights;
+    }
+
+    public void setOldDeltaWeights(INDArray oldDeltaWeights) {
+        this.oldDeltaWeights = oldDeltaWeights;
+    }
+
+    public INDArray getOldDeltaBias() {
+        return oldDeltaBias;
+    }
+
+    public void setOldDeltaBias(INDArray oldDeltaBias) {
+        this.oldDeltaBias = oldDeltaBias;
     }
 }
