@@ -16,9 +16,9 @@ public class XORLearning {
         for(int i=0; i<inputs.columns(); i++){
             INDArray input = inputs.getColumn(i);
             System.out.println(input);
-            //INDArray output = xorLearning.getOutput(input);
+            //INDArray trainingOutput = xorLearning.getTrainingOutput(trainingInput);
 
-            //System.out.println(output);
+            //System.out.println(trainingOutput);
 
             NNLayer layer1 = new NNLayer(new StepFunction(), 2,2);
             layer1.setWeights(Nd4j.create(new double[]{1,1,1,1}, new int[]{2,2}));

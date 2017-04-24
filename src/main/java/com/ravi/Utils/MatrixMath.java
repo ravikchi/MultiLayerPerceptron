@@ -1,5 +1,8 @@
 package com.ravi.Utils;
 
+import org.nd4j.linalg.api.ndarray.INDArray;
+import org.nd4j.linalg.factory.Nd4j;
+
 /**
  * Created by 611445924 on 09/03/2017.
  */
@@ -11,22 +14,22 @@ public class MatrixMath {
      * @param b
      */
     public static double[][] substraction(double[][] a, double[][] b){
-        if(inValidMatrices(a, b)){
-            return null;
-        }
+        INDArray aArray = Nd4j.create(a);
+        INDArray bArray = Nd4j.create(b);
 
-        double[][] aMinusB = new double[a.length][a[0].length];
+        return getArray(aArray.sub(bArray));
+    }
 
-        for(int i=0; i<a.length; i++){
-            for(int j=0; j<a[i].length; j++){
-                aMinusB[i][j] = a[i][j] - b[i][j];
-                if(Constants.debugMode) {
-                    System.out.println(aMinusB[i][j]);
-                }
+    public static double[][] getArray(INDArray c){
+        int rowSize = c.rows();
+        int colSize = c.columns();
+        double[][] output = new double[rowSize][colSize];
+        for(int i=0; i<rowSize; i++){
+            for(int j=0; j<colSize; j++){
+                output[i][j]=c.getDouble(i, j);
             }
         }
-
-        return aMinusB;
+        return output;
     }
 
     public static double scalarValue(double[] a){
@@ -60,6 +63,14 @@ public class MatrixMath {
         for (int i = 0; i < n; i++)
             a[i][i] = 1;
         return a;
+    }
+
+    public static double[] get1DArray(INDArray a){
+        double[] output = new double[a.rows()];
+        for(int i=0; i<a.rows(); i++){
+            output[i] = a.getDouble(i);
+        }
+        return output;
     }
 
     public static double[] scalarProduct(double[] a, double s){

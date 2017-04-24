@@ -26,6 +26,8 @@ public class OnlineLearning implements LearningAlgorithm{
         double totalError = 0.0;
         ErrorFunction ef = new ErrorFunction();
 
+        int n=0;
+
         for(int i=validationSize(inputs); i<inputs.columns(); i++) {
             INDArray input = inputs.getColumn(i);
             INDArray desOutput = desOutputs.getColumn(i);
@@ -36,9 +38,11 @@ public class OnlineLearning implements LearningAlgorithm{
             INDArray error = desOutput.sub(output);
             Logger.debugLog("Local Error " + error);
             totalError = totalError + ef.getError(desOutput, output);
+
+            n++;
         }
 
-        return totalError;
+        return totalError/n;
     }
 
 
@@ -94,6 +98,8 @@ public class OnlineLearning implements LearningAlgorithm{
         double totalError = 0.0;
         ErrorFunction ef = new ErrorFunction();
 
+        int n=0;
+
         for(int i=0; i<validationSize(inputs); i++) {
             INDArray input = inputs.getColumn(i);
             INDArray desOutput = desOutputs.getColumn(i);
@@ -121,8 +127,9 @@ public class OnlineLearning implements LearningAlgorithm{
 
                 Logger.debugLog("***************************************************************");
             }
+            n++;
         }
 
-        return totalError;
+        return totalError/n;
     }
 }
