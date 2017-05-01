@@ -3,7 +3,7 @@ package com.ravi.DeepNNND4J.Examples;
 import com.ravi.DeepNNND4J.AF.LinearAF;
 import com.ravi.DeepNNND4J.AF.SigmoidAF;
 import com.ravi.DeepNNND4J.Error.ErrorFunction;
-import com.ravi.DeepNNND4J.Layers.NNLayer;
+import com.ravi.DeepNNND4J.Layers.StandardLayer;
 import com.ravi.Utils.Logger;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
@@ -16,8 +16,8 @@ public class XORDNNLearning {
         INDArray inputs = Nd4j.create(new double[]{1,0,1,0,0,1,1,0}, new int[]{2,4}, 'c');
         INDArray desOutputs = Nd4j.create(new double[]{1, 1, 0, 0}, new int[]{1, 4});
 
-        NNLayer layer1 = new NNLayer(new SigmoidAF(), 2,2);
-        NNLayer layer2 = new NNLayer(new LinearAF(), 2, 1);
+        StandardLayer layer1 = new StandardLayer(new SigmoidAF(), 2,2);
+        StandardLayer layer2 = new StandardLayer(new LinearAF(), 2, 1);
 
         int count=0;
         double error = 0.0;
@@ -46,7 +46,7 @@ public class XORDNNLearning {
 
     }
 
-    public static double epoch(INDArray inputs, INDArray desOutputs, NNLayer layer1, NNLayer layer2){
+    public static double epoch(INDArray inputs, INDArray desOutputs, StandardLayer layer1, StandardLayer layer2){
         double totalError = 0.0;
         ErrorFunction ef = new ErrorFunction();
 
@@ -86,7 +86,7 @@ public class XORDNNLearning {
         return totalError;
     }
 
-    public static void updateWeights(NNLayer layer, INDArray input, INDArray error){
+    public static void updateWeights(StandardLayer layer, INDArray input, INDArray error){
         INDArray deltaY = layer.getDelta(input, error);
         Logger.debugLog(deltaY.toString());
 

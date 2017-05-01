@@ -7,7 +7,7 @@ import org.nd4j.linalg.factory.Nd4j;
 /**
  * Created by 611445924 on 18/04/2017.
  */
-public class NNLayer {
+public class StandardLayer implements Layer {
     protected ActivationFunction activationFunction;
     protected INDArray weights;
     protected INDArray bias;
@@ -16,7 +16,7 @@ public class NNLayer {
     protected INDArray oldDeltaBias;
 
 
-    public NNLayer(ActivationFunction activationFunction, int numberOfInputs, int numberOfNeurons) {
+    public StandardLayer(ActivationFunction activationFunction, int numberOfInputs, int numberOfNeurons) {
         this.activationFunction = activationFunction;
         this.weights = Nd4j.rand(numberOfNeurons, numberOfInputs);
         this.bias = Nd4j.rand(numberOfNeurons, 1);
@@ -25,8 +25,8 @@ public class NNLayer {
         this.oldDeltaBias = Nd4j.zeros(numberOfNeurons, 1);
     }
 
-    public NNLayer clone(){
-        NNLayer layer = new NNLayer(activationFunction, weights.columns(), weights.rows());
+    public StandardLayer clone(){
+        StandardLayer layer = new StandardLayer(activationFunction, weights.columns(), weights.rows());
         layer.setWeights(this.weights.dup());
         layer.setBias(this.bias.dup());
 

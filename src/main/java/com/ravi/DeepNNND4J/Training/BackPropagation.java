@@ -1,7 +1,8 @@
 package com.ravi.DeepNNND4J.Training;
 
 import com.ravi.DeepNNND4J.DeltaWeights;
-import com.ravi.DeepNNND4J.Layers.NNLayer;
+import com.ravi.DeepNNND4J.Layers.Layer;
+import com.ravi.DeepNNND4J.Layers.StandardLayer;
 import com.ravi.Utils.Logger;
 import org.nd4j.linalg.api.ndarray.INDArray;
 
@@ -18,7 +19,7 @@ public class BackPropagation implements TrainingAlgorithm {
     }
 
     @Override
-    public DeltaWeights train(NNLayer layer, INDArray input, INDArray error) {
+    public DeltaWeights train(Layer layer, INDArray input, INDArray error) {
         INDArray deltaY = layer.getDelta(input, error);
         Logger.debugLog(deltaY.toString());
 

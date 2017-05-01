@@ -1,7 +1,7 @@
 package com.ravi.DeepNNND4J.Examples;
 
 import com.ravi.DeepNNND4J.AF.StepFunction;
-import com.ravi.DeepNNND4J.Layers.NNLayer;
+import com.ravi.DeepNNND4J.Layers.StandardLayer;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
 
@@ -20,13 +20,13 @@ public class XORLearning {
 
             //System.out.println(trainingOutput);
 
-            NNLayer layer1 = new NNLayer(new StepFunction(), 2,2);
+            StandardLayer layer1 = new StandardLayer(new StepFunction(), 2,2);
             layer1.setWeights(Nd4j.create(new double[]{1,1,1,1}, new int[]{2,2}));
             layer1.setBias(Nd4j.create(new double[]{-1.5, -0.5}, new int[]{2,1}));
 
             INDArray outputH = layer1.getOutput(input);
 
-            NNLayer layer2 = new NNLayer(new StepFunction(), 1, 2);
+            StandardLayer layer2 = new StandardLayer(new StepFunction(), 1, 2);
             layer2.setWeights(Nd4j.create(new double[]{-2, 1}, new int[]{1,2}));
             layer2.setBias(Nd4j.create(new double[]{-0.5}, new int[]{1,1}));
 

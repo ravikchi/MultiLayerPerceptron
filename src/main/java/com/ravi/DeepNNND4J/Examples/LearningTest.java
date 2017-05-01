@@ -4,7 +4,7 @@ import com.ravi.DeepNNND4J.AF.LinearAF;
 import com.ravi.DeepNNND4J.AF.SigmoidAF;
 import com.ravi.DeepNNND4J.Learning.LearningAlgorithm;
 import com.ravi.DeepNNND4J.Learning.OnlineLearning;
-import com.ravi.DeepNNND4J.NNetworkND4j;
+import com.ravi.DeepNNND4J.NeuralNetwork;
 import com.ravi.DeepNNND4J.Training.BackPropagation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
@@ -17,7 +17,7 @@ public class LearningTest {
         INDArray inputs = Nd4j.create(new double[]{1,0,1,0,0,1,1,0}, new int[]{2,4}, 'c');
         INDArray desOutputs = Nd4j.create(new double[]{1, 1, 0, 0}, new int[]{1, 4});
 
-        NNetworkND4j network = new NNetworkND4j();
+        NeuralNetwork network = new NeuralNetwork();
         network.addLayer(new SigmoidAF(), 2,2);
         network.addLayer(new LinearAF(), 2, 1);
 

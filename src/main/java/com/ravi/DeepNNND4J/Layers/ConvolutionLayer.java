@@ -6,7 +6,7 @@ import org.nd4j.linalg.api.ndarray.INDArray;
 /**
  * Created by 611445924 on 01/05/2017.
  */
-public class ConvolutionLayer extends NNLayer{
+public class ConvolutionLayer extends StandardLayer {
 
     private int m;
     private int n;

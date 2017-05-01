@@ -2,8 +2,8 @@ package com.ravi.DeepNNND4J.Learning;
 
 import com.ravi.DeepNNND4J.DeltaWeights;
 import com.ravi.DeepNNND4J.Error.ErrorFunction;
-import com.ravi.DeepNNND4J.Layers.NNLayer;
-import com.ravi.DeepNNND4J.NNetworkND4j;
+import com.ravi.DeepNNND4J.Layers.Layer;
+import com.ravi.DeepNNND4J.NeuralNetwork;
 import com.ravi.DeepNNND4J.Training.TrainingAlgorithm;
 import com.ravi.Utils.Logger;
 import org.nd4j.linalg.api.ndarray.INDArray;
@@ -12,12 +12,12 @@ import org.nd4j.linalg.api.ndarray.INDArray;
  * Created by 611445924 on 18/04/2017.
  */
 public class OnlineLearning implements LearningAlgorithm{
-    NNetworkND4j network;
+    NeuralNetwork network;
     TrainingAlgorithm trainingAlgorithm;
-    NNetworkND4j bestNetwork;
+    NeuralNetwork bestNetwork;
     EarlyStopCriteria earlyStopCriteria = new EarlyStopCriteria(0.0, 50000, 0.000001, 10000);
 
-    public OnlineLearning(NNetworkND4j network, TrainingAlgorithm trainingAlgorithm) {
+    public OnlineLearning(NeuralNetwork network, TrainingAlgorithm trainingAlgorithm) {
         this.network = network;
         this.trainingAlgorithm = trainingAlgorithm;
     }
@@ -47,7 +47,7 @@ public class OnlineLearning implements LearningAlgorithm{
 
 
     @Override
-    public NNetworkND4j train(INDArray inputs, INDArray outputs) {
+    public NeuralNetwork train(INDArray inputs, INDArray outputs) {
         int count = 0;
         double error = 0.0;
         double validationError = 0.0;
@@ -115,7 +115,7 @@ public class OnlineLearning implements LearningAlgorithm{
                 INDArray localInput = network.getOutput(input, j-1);
                 INDArray localError = network.getError(input, error, j+1);
 
-                NNLayer localLayer = network.getLayer(j);
+                Layer localLayer = network.getLayer(j);
                 DeltaWeights weights = trainingAlgorithm.train(localLayer, localInput, localError);
 
                 Logger.debugLog("Original Layer1 Weights");
