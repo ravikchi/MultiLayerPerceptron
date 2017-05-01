@@ -1,6 +1,7 @@
 package com.ravi.DeepNNND4J;
 
 import com.ravi.DeepNNND4J.AF.ActivationFunction;
+import com.ravi.DeepNNND4J.Layers.NNLayer;
 import org.nd4j.linalg.api.ndarray.INDArray;
 
 import java.util.ArrayList;

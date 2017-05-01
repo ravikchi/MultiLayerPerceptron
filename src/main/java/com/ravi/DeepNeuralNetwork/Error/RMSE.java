@@ -1,4 +1,4 @@
-package com.ravi.Error;
+package com.ravi.DeepNeuralNetwork.Error;
 
 /**
  * Created by 611445924 on 08/03/2017.

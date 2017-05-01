@@ -1,7 +1,7 @@
-package com.ravi.Examples;
+package com.ravi.DeepNeuralNetwork.Examples;
 
-import com.ravi.AF.LinearAF;
-import com.ravi.AF.SigmoidAF;
+import com.ravi.DeepNeuralNetwork.AF.LinearAF;
+import com.ravi.DeepNeuralNetwork.AF.SigmoidAF;
 import com.ravi.MultiLayerPerceptron.MLP.MLPerceptron;
 
 /**

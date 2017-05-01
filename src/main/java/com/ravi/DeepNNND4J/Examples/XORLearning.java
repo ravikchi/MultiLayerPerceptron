@@ -1,7 +1,7 @@
 package com.ravi.DeepNNND4J.Examples;
 
 import com.ravi.DeepNNND4J.AF.StepFunction;
-import com.ravi.DeepNNND4J.NNLayer;
+import com.ravi.DeepNNND4J.Layers.NNLayer;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
 

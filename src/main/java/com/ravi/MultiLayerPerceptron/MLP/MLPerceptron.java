@@ -1,6 +1,6 @@
 package com.ravi.MultiLayerPerceptron.MLP;
 
-import com.ravi.AF.ActivationFunction;
+import com.ravi.DeepNeuralNetwork.AF.ActivationFunction;
 import com.ravi.Utils.Logger;
 
 /**

@@ -1,8 +1,8 @@
-package com.ravi.Examples;
+package com.ravi.DeepNeuralNetwork.Examples;
 
-import com.ravi.AF.LinearAF;
-import com.ravi.AF.SigmoidAF;
-import com.ravi.Error.RMSE;
+import com.ravi.DeepNeuralNetwork.AF.LinearAF;
+import com.ravi.DeepNeuralNetwork.AF.SigmoidAF;
+import com.ravi.DeepNeuralNetwork.Error.RMSE;
 import com.ravi.MultiLayerPerceptron.Learning.LearningAlgorithm;
 import com.ravi.MultiLayerPerceptron.Learning.OnlineLearning;
 import com.ravi.MultiLayerPerceptron.MLP.MLPerceptron;

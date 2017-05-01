@@ -1,13 +1,12 @@
-package com.ravi.Examples;
+package com.ravi.DeepNeuralNetwork.Examples;
 
-import com.ravi.AF.LinearAF;
-import com.ravi.AF.SigmoidAF;
+import com.ravi.DeepNeuralNetwork.AF.LinearAF;
+import com.ravi.DeepNeuralNetwork.AF.SigmoidAF;
 import com.ravi.DeepNeuralNetwork.Learning.LearningAlgorithm;
 import com.ravi.DeepNeuralNetwork.NeuralNetwork;
 import com.ravi.DeepNeuralNetwork.Training.BackPropagation;
 import com.ravi.DeepNeuralNetwork.Learning.OnlineLearning;
 import com.ravi.DeepNeuralNetwork.NeuronLayer;
-import com.ravi.Utils.Logger;
 
 import java.text.DecimalFormat;
 

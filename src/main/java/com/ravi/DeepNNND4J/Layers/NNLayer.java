@@ -1,4 +1,4 @@
-package com.ravi.DeepNNND4J;
+package com.ravi.DeepNNND4J.Layers;
 
 import com.ravi.DeepNNND4J.AF.ActivationFunction;
 import org.nd4j.linalg.api.ndarray.INDArray;
@@ -8,12 +8,12 @@ import org.nd4j.linalg.factory.Nd4j;
  * Created by 611445924 on 18/04/2017.
  */
 public class NNLayer {
-    private ActivationFunction activationFunction;
-    private INDArray weights;
-    private INDArray bias;
+    protected ActivationFunction activationFunction;
+    protected INDArray weights;
+    protected INDArray bias;
 
-    private INDArray oldDeltaWeights;
-    private INDArray oldDeltaBias;
+    protected INDArray oldDeltaWeights;
+    protected INDArray oldDeltaBias;
 
 
     public NNLayer(ActivationFunction activationFunction, int numberOfInputs, int numberOfNeurons) {
@@ -52,7 +52,7 @@ public class NNLayer {
         return product(output, error);
     }
 
-    private INDArray product(INDArray a, INDArray b){
+    protected INDArray product(INDArray a, INDArray b){
         INDArray c = Nd4j.zeros(a.rows(), a.columns());
         for(int i=0; i<a.linearView().length(); i++){
             c.linearView().putScalar(i, a.linearView().getDouble(i) * b.linearView().getDouble(i));

@@ -5,8 +5,8 @@ import com.ravi.DeepNeuralNetwork.NeuralNetwork;
 import com.ravi.DeepNeuralNetwork.NeuronLayer;
 import com.ravi.DeepNeuralNetwork.Training.BackPropagation;
 import com.ravi.DeepNeuralNetwork.Training.TrainingAlgorithm;
-import com.ravi.Error.ErrorFunction;
-import com.ravi.Error.RMSE;
+import com.ravi.DeepNeuralNetwork.Error.ErrorFunction;
+import com.ravi.DeepNeuralNetwork.Error.RMSE;
 import com.ravi.Utils.Logger;
 import com.ravi.Utils.MatrixMath;
 

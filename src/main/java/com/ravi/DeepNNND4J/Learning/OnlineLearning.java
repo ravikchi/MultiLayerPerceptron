@@ -2,7 +2,7 @@ package com.ravi.DeepNNND4J.Learning;
 
 import com.ravi.DeepNNND4J.DeltaWeights;
 import com.ravi.DeepNNND4J.Error.ErrorFunction;
-import com.ravi.DeepNNND4J.NNLayer;
+import com.ravi.DeepNNND4J.Layers.NNLayer;
 import com.ravi.DeepNNND4J.NNetworkND4j;
 import com.ravi.DeepNNND4J.Training.TrainingAlgorithm;
 import com.ravi.Utils.Logger;

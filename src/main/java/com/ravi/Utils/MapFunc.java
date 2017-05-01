@@ -1,8 +1,6 @@
 package com.ravi.Utils;
 
-import com.ravi.AF.ActivationFunction;
-
-import java.util.List;
+import com.ravi.DeepNeuralNetwork.AF.ActivationFunction;
 
 /**
  * Created by 611445924 on 10/04/2017.

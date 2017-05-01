@@ -1,6 +1,6 @@
 package com.ravi.DeepNeuralNetwork;
 
-import com.ravi.AF.ActivationFunction;
+import com.ravi.DeepNeuralNetwork.AF.ActivationFunction;
 import com.ravi.Utils.MapFunc;
 import com.ravi.Utils.MatrixMath;
 

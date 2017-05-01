@@ -1,6 +1,6 @@
 package com.ravi.DeepNNND4J.Training;
 
-import com.ravi.DeepNNND4J.NNLayer;
+import com.ravi.DeepNNND4J.Layers.NNLayer;
 import com.ravi.DeepNNND4J.DeltaWeights;
 import org.nd4j.linalg.api.ndarray.INDArray;
 

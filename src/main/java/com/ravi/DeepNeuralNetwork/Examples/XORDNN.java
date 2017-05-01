@@ -1,6 +1,6 @@
-package com.ravi.Examples;
+package com.ravi.DeepNeuralNetwork.Examples;
 
-import com.ravi.AF.StepFunction;
+import com.ravi.DeepNeuralNetwork.AF.StepFunction;
 import com.ravi.DeepNeuralNetwork.NeuronLayer;
 
 /**
