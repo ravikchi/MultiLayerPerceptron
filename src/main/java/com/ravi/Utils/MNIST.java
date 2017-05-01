@@ -1,4 +1,4 @@
-package com.ravi.DeepNNND4J;
+package com.ravi.Utils;
 
 import au.com.bytecode.opencsv.CSVReader;
 import org.nd4j.linalg.api.ndarray.INDArray;

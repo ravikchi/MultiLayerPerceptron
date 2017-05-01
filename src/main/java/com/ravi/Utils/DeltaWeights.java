@@ -1,4 +1,4 @@
-package com.ravi.DeepNNND4J;
+package com.ravi.Utils;
 
 import org.nd4j.linalg.api.ndarray.INDArray;
 

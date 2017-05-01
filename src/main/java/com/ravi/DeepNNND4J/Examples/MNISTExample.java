@@ -1,6 +1,6 @@
 package com.ravi.DeepNNND4J.Examples;
 
-import com.ravi.DeepNNND4J.MNIST;
+import com.ravi.Utils.MNIST;
 
 /**
  * Created by ravik on 24/04/2017.

@@ -1,6 +1,6 @@
 package com.ravi.DeepNNND4J.Learning;
 
-import com.ravi.DeepNNND4J.DeltaWeights;
+import com.ravi.Utils.DeltaWeights;
 import com.ravi.DeepNNND4J.Error.ErrorFunction;
 import com.ravi.DeepNNND4J.Layers.Layer;
 import com.ravi.DeepNNND4J.NeuralNetwork;
