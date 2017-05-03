@@ -26,12 +26,13 @@ public class MNIST {
             INDArray output = Nd4j.zeros(1, numOfExamples);
             INDArray input = Nd4j.zeros(784, numOfExamples);
 
+            String[] header = reader.readNext();
+
             int count=0;
             while((nextLine = reader.readNext()) != null){
                 output.put(0, count, Double.parseDouble(nextLine[0]));
                 for(int i=1; i<nextLine.length; i++){
                     input.put(i-1, count, Double.parseDouble(nextLine[i]));
-                    System.out.println(i-1+" ,"+count+" ,"+Double.parseDouble(nextLine[i]));
                 }
                 count++;
                 if(count>=numOfExamples){
@@ -55,8 +56,8 @@ public class MNIST {
     }
 
     public MNIST(int numOfExamples) {
-        fetchData(true, numOfExamples, "C:\\Users\\ravik\\Downloads\\mnist_train.csv");
-        fetchData(false, numOfExamples/10, "C:\\Users\\ravik\\Downloads\\mnist_test.csv");
+        fetchData(true, numOfExamples, "C:\\Users\\rc16956\\Downloads\\train.csv");
+        fetchData(false, numOfExamples/10, "C:\\Users\\rc16956\\Downloads\\test.csv");
     }
 
     public INDArray getTestOutput() {

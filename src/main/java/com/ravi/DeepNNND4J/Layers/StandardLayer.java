@@ -15,6 +15,9 @@ public class StandardLayer implements Layer {
     protected INDArray oldDeltaWeights;
     protected INDArray oldDeltaBias;
 
+    public StandardLayer(ActivationFunction activationFunction) {
+        this.activationFunction = activationFunction;
+    }
 
     public StandardLayer(ActivationFunction activationFunction, int numberOfInputs, int numberOfNeurons) {
         this.activationFunction = activationFunction;
