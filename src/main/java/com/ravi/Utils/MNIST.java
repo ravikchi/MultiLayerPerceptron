@@ -32,7 +32,7 @@ public class MNIST {
             while((nextLine = reader.readNext()) != null){
                 output.put(0, count, Double.parseDouble(nextLine[0]));
                 for(int i=1; i<nextLine.length; i++){
-                    input.put(i-1, count, Double.parseDouble(nextLine[i]));
+                    input.put(i-1, count, Double.parseDouble(nextLine[i])/255);
                 }
                 count++;
                 if(count>=numOfExamples){
@@ -55,9 +55,9 @@ public class MNIST {
         }
     }
 
-    public MNIST(int numOfExamples) {
-        fetchData(true, numOfExamples, "C:\\Users\\rc16956\\Downloads\\train.csv");
-        fetchData(false, numOfExamples/10, "C:\\Users\\rc16956\\Downloads\\test.csv");
+    public MNIST(int numOfExamples, String trainPath, String testPath) {
+        fetchData(true, numOfExamples, trainPath);
+        fetchData(false, numOfExamples/10, testPath);
     }
 
     public INDArray getTestOutput() {

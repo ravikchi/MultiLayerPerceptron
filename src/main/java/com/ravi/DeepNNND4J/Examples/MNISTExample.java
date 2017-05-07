@@ -10,7 +10,7 @@ import org.nd4j.linalg.indexing.NDArrayIndex;
 public class MNISTExample
 {
     public static void main(String[] args) {
-        MNIST mnist = new MNIST(100);
+        MNIST mnist = new MNIST(100,"C:\\Users\\ravik\\Downloads\\train.csv", "C:\\Users\\ravik\\Downloads\\test.csv");
         //System.out.println(mnist.getTestInput());
 
 
