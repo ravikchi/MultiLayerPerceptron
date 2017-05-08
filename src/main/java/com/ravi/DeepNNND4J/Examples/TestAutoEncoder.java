@@ -14,7 +14,7 @@ import org.nd4j.linalg.api.ndarray.INDArray;
  */
 public class TestAutoEncoder {
     public static void main(String[] args){
-        MNIST mnist = new MNIST(1000, "C:\\Users\\ravik\\Downloads\\train.csv", "C:\\Users\\ravik\\Downloads\\test.csv");
+        MNIST mnist = new MNIST(1000, "C:\\Users\\611445924\\Downloads\\OneDrive_1_2017-5-7\\train.csv", "C:\\Users\\611445924\\Downloads\\OneDrive_1_2017-5-7\\test.csv");
 
         NeuralNetwork network = new NeuralNetwork();
         network.addLayer(new SigmoidAF(), 784, 100);

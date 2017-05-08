@@ -1,6 +1,8 @@
 package com.ravi.DeepNNND4J;
 
 import com.ravi.DeepNNND4J.AF.ActivationFunction;
+import com.ravi.DeepNNND4J.Error.DefaultError;
+import com.ravi.DeepNNND4J.Error.ErrorFunction;
 import com.ravi.DeepNNND4J.Layers.Layer;
 import com.ravi.DeepNNND4J.Layers.StandardLayer;
 import org.nd4j.linalg.api.ndarray.INDArray;
@@ -13,9 +15,18 @@ import java.util.List;
  */
 public class NeuralNetwork {
     List<Layer> network = new ArrayList<Layer>();
+    ErrorFunction errorFunction = new DefaultError();
 
     public void addLayer(ActivationFunction activationFunction, int numberOfInputs, int numberOfNeurons){
         network.add(new StandardLayer(activationFunction, numberOfInputs, numberOfNeurons));
+    }
+
+    public ErrorFunction getErrorFunction() {
+        return errorFunction;
+    }
+
+    public void setErrorFunction(ErrorFunction errorFunction) {
+        this.errorFunction = errorFunction;
     }
 
     public void addLayer(StandardLayer layer){

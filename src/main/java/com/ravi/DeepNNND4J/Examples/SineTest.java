@@ -11,6 +11,7 @@ import com.ravi.Utils.ArrayUtils;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
 
+import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,15 +58,29 @@ public class SineTest {
         INDArray trainingOutput = Nd4j.create(trainingOutputs);
 
         NeuralNetwork network = new NeuralNetwork();
-        network.addLayer(new SigmoidAF(), 1, 10);
-        network.addLayer(new LinearAF(), 10, 1);
+        network.addLayer(new SigmoidAF(), 1, 4);
+        network.addLayer(new LinearAF(), 4, 1);
 
         LearningAlgorithm learningAlgorithm = new OnlineLearning(network, new BackPropagation(0.1, 0.01));
-        learningAlgorithm.setEarlyStopCriteria(new EarlyStopCriteria(0.2, 5000, 0.000001, 1000));
-        network = learningAlgorithm.train(trainingInput.transpose(), trainingOutput.transpose());
+        learningAlgorithm.setEarlyStopCriteria(new EarlyStopCriteria(0.2, 10000, 0.000001, 5000));
+        network = learningAlgorithm.train(trainingInput.transpose(), trainingInput.transpose());
 
         INDArray testInput = Nd4j.create(testData);
         INDArray testOutput = Nd4j.create(testOutputs);
+
+        System.out.println("###################################################################################################");
+        System.out.println("Layer 1 Weights");
+        System.out.println(network.getLayer(0).getWeights());
+        System.out.println("Layer 1 Bias");
+        System.out.println(network.getLayer(0).getBias());
+
+
+        System.out.println("Layer 2 Weights");
+        System.out.println(network.getLayer(1).getWeights());
+        System.out.println("Layer 2 Bias");
+        System.out.println(network.getLayer(1).getBias());
+
+        System.out.println("###################################################################################################");
 
         for(int k=0; k<testInput.rows(); k++) {
             INDArray input = testInput.getRow(k);
@@ -73,7 +88,7 @@ public class SineTest {
 
             INDArray output = network.getOutput(input);
             System.out.println("NNOutput :"+ output);
-            System.out.println("ActOutput :"+testOutput.getRow(k));
+            //System.out.println("ActOutput :"+testOutput.getRow(k));
         }
     }
 }

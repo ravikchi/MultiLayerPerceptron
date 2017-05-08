@@ -2,6 +2,7 @@ package com.ravi.DeepNNND4J.Examples;
 
 import com.ravi.DeepNNND4J.AF.LinearAF;
 import com.ravi.DeepNNND4J.AF.SigmoidAF;
+import com.ravi.DeepNNND4J.Error.DefaultError;
 import com.ravi.DeepNNND4J.Error.ErrorFunction;
 import com.ravi.DeepNNND4J.Layers.StandardLayer;
 import com.ravi.Utils.Logger;
@@ -48,7 +49,7 @@ public class XORDNNLearning {
 
     public static double epoch(INDArray inputs, INDArray desOutputs, StandardLayer layer1, StandardLayer layer2){
         double totalError = 0.0;
-        ErrorFunction ef = new ErrorFunction();
+        ErrorFunction ef = new DefaultError();
 
         for(int i=0; i<inputs.columns(); i++) {
             INDArray input = inputs.getColumn(i);
@@ -61,7 +62,7 @@ public class XORDNNLearning {
             INDArray error = desOutput.sub(outputY);
             Logger.debugLog("Local Error "+ error);
 
-            totalError = totalError + ef.getError(desOutput, outputY);
+            totalError = totalError + ef.getRMSError(desOutput, outputY);
 
             Logger.debugLog("Original Layer2 Weights");
             Logger.debugLog(layer2.getWeights().toString());

@@ -1,5 +1,6 @@
 package com.ravi.DeepNNND4J.Learning;
 
+import com.ravi.DeepNNND4J.Error.DefaultError;
 import com.ravi.Utils.DeltaWeights;
 import com.ravi.DeepNNND4J.Error.ErrorFunction;
 import com.ravi.DeepNNND4J.Layers.Layer;
@@ -22,9 +23,10 @@ public class OnlineLearning implements LearningAlgorithm{
         this.trainingAlgorithm = trainingAlgorithm;
     }
 
+
+
     private double validation(INDArray inputs, INDArray desOutputs){
         double totalError = 0.0;
-        ErrorFunction ef = new ErrorFunction();
 
         int n=0;
 
@@ -35,9 +37,9 @@ public class OnlineLearning implements LearningAlgorithm{
             INDArray output = network.getOutput(input);
             Logger.debugLog("Actual Output :" + output);
 
-            INDArray error = desOutput.sub(output);
+            INDArray error = network.getErrorFunction().getError(desOutput, output);
             Logger.debugLog("Local Error " + error);
-            totalError = totalError + ef.getError(desOutput, output);
+            totalError = totalError + network.getErrorFunction().getRMSError(desOutput, output);
 
             n++;
         }
@@ -64,6 +66,7 @@ public class OnlineLearning implements LearningAlgorithm{
             if(validationError < oldValidationError){
                 bestNetwork = network.getClone();
                 oldValidationError = validationError;
+                validationCount=0;
             }else{
                 if(validationCount > earlyStopCriteria.getMaxValidationCount()){
                     break;
@@ -74,7 +77,7 @@ public class OnlineLearning implements LearningAlgorithm{
 
             Logger.log("Total Error "+error);
             Logger.log("Validation Error "+validationError);
-            if(error < earlyStopCriteria.getMinError()){
+            if(Math.abs(error) < earlyStopCriteria.getMinError()){
                 break;
             }
             count++;
@@ -96,7 +99,6 @@ public class OnlineLearning implements LearningAlgorithm{
 
     public double epoch(INDArray inputs, INDArray desOutputs){
         double totalError = 0.0;
-        ErrorFunction ef = new ErrorFunction();
 
         int n=0;
 
@@ -107,9 +109,9 @@ public class OnlineLearning implements LearningAlgorithm{
             INDArray output = network.getOutput(input);
             Logger.debugLog("Actual Output :"+ output);
 
-            INDArray error = desOutput.sub(output);
+            INDArray error = network.getErrorFunction().getError(desOutput, output);
             Logger.debugLog("Local Error "+ error);
-            totalError = totalError + ef.getError(desOutput, output);
+            totalError = totalError + network.getErrorFunction().getRMSError(desOutput, output);
 
             for(int j=network.size()-1; j>=0; j--){
                 INDArray localInput = network.getOutput(input, j-1);
